@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fraction Master - Visual Learning</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+    
+    <script type="text/babel">
+        const { useState } = React;
+        const { Home, Circle, Plus, Scale, Shuffle, BookOpen, Award, Menu, ChevronLeft, ArrowLeft } = lucide;
+
+        function Icon({ icon, ...props }) {
+            const IconComponent = icon;
+            return React.createElement(IconComponent, props);
+        }
+
+        function FractionMasterApp() {
+            const [currentView, setCurrentView] = useState('home');
+
+            const concepts = [
+                {
+                    id: 'visualizer',
+                    title: 'Fraction Visualizer',
+                    description: 'See fractions as circles, bars, and number lines',
+                    icon: Circle,
+                    color: 'from-blue-500 to-purple-500',
+                    difficulty: 'Beginner'
+                },
+                {
+                    id: 'comparing',
+                    title: 'Comparing Fractions',
+                    description: 'Which fraction is bigger? Visual game',
+                    icon: Scale,
+                    color: 'from-cyan-500 to-blue-500',
+                    difficulty: 'Beginner'
+                },
+                {
+                    id: 'equivalent',
+                    title: 'Equivalent Fractions',
+                    description: 'Transform fractions - different forms, same value',
+                    icon: Shuffle,
+                    color: 'from-pink-500 to-purple-500',
+                    difficulty: 'Intermediate'
+                },
+                {
+                    id: 'operations',
+                    title: 'Fraction Operations',
+                    description: 'Add, subtract, multiply, and divide fractions visually',
+                    icon: Plus,
+                    color: 'from-purple-500 to-pink-500',
+                    difficulty: 'Intermediate'
+                },
+                {
+                    id: 'word-problems',
+                    title: 'Word Problems',
+                    description: 'Real-world fraction scenarios come to life',
+                    icon: BookOpen,
+                    color: 'from-emerald-500 to-teal-500',
+                    difficulty: 'Advanced'
+                }
+            ];
+
+            const HomePage = () => (
+                <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-6">
+                    <div className="max-w-7xl mx-auto">
+                        <div className="text-center mb-12">
+                            <h1 className="text-6xl md:text-7xl font-bold mb-4">
+                                <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+                                    Fraction Master
+                                </span>
+                            </h1>
+                            <p className="text-xl md:text-2xl text-gray-300 mb-2">
+                                Master fractions through beautiful visualizations
+                            </p>
+                            <p className="text-gray-500">
+                                Choose a concept below to start learning
+                            </p>
+                        </div>
+
+                        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+                            {concepts.map((concept) => {
+                                const IconComponent = concept.icon;
+                                
+                                return (
+                                    <button
+                                        key={concept.id}
+                                        onClick={() => setCurrentView(concept.id)}
+                                        className="group relative bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-6 border border-slate-700/50 hover:border-slate-600 transition-all duration-300 hover:scale-105 hover:shadow-2xl text-left overflow-hidden"
+                                    >
+                                        <div className={`absolute inset-0 bg-gradient-to-br ${concept.color} opacity-0 group-hover:opacity-10 transition-opacity duration-300`} />
+                                        
+                                        <div className="relative">
+                                            <div className={`w-16 h-16 bg-gradient-to-br ${concept.color} rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
+                                                <Icon icon={IconComponent} className="w-8 h-8 text-white" />
+                                            </div>
+                                            
+                                            <h3 className="text-2xl font-bold text-gray-200 mb-2 group-hover:text-white transition-colors">
+                                                {concept.title}
+                                            </h3>
+                                            
+                                            <p className="text-gray-400 mb-4 group-hover:text-gray-300 transition-colors">
+                                                {concept.description}
+                                            </p>
+                                            
+                                            <div className="flex items-center gap-2">
+                                                <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
+                                                    concept.difficulty === 'Beginner' ? 'bg-green-900/50 text-green-400' :
+                                                    concept.difficulty === 'Intermediate' ? 'bg-yellow-900/50 text-yellow-400' :
+                                                    'bg-red-900/50 text-red-400'
+                                                }`}>
+                                                    {concept.difficulty}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </button>
+                                );
+                            })}
+                        </div>
+
+                        <div className="bg-gradient-to-r from-slate-800/50 to-slate-900/50 rounded-2xl p-8 border border-slate-700/30">
+                            <h2 className="text-3xl font-bold text-gray-300 mb-4">About Fraction Master</h2>
+                            <div className="grid md:grid-cols-3 gap-6 text-gray-400">
+                                <div>
+                                    <div className="text-blue-400 font-semibold mb-2">🎨 Visual Learning</div>
+                                    <p className="text-sm">
+                                        See fractions as circles, bars, and number lines. Understanding through multiple representations.
+                                    </p>
+                                </div>
+                                <div>
+                                    <div className="text-purple-400 font-semibold mb-2">🎮 Interactive Practice</div>
+                                    <p className="text-sm">
+                                        Hands-on exploration with instant feedback. Learn by doing, not just reading.
+                                    </p>
+                                </div>
+                                <div>
+                                    <div className="text-pink-400 font-semibold mb-2">✨ Beautiful Design</div>
+                                    <p className="text-sm">
+                                        Elegant, engaging visuals inspired by 3Blue1Brown. Math that's actually fun to explore.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="mt-8 text-center text-gray-500 text-sm">
+                            <p>Built by a high school student passionate about making math accessible</p>
+                            <p className="mt-2">Beta Version - Your feedback is appreciated!</p>
+                        </div>
+                    </div>
+                </div>
+            );
+
+            const ConceptPage = ({ conceptId }) => {
+                const concept = concepts.find(c => c.id === conceptId);
+                
+                return (
+                    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-6">
+                        <div className="max-w-4xl mx-auto">
+                            <div className="flex items-center gap-4 mb-8">
+                                <button
+                                    onClick={() => setCurrentView('home')}
+                                    className="flex items-center gap-2 p-3 bg-slate-800 hover:bg-slate-700 rounded-xl border border-slate-700 transition-all duration-300"
+                                >
+                                    <Icon icon={ArrowLeft} className="w-5 h-5" />
+                                    <span>Back to Home</span>
+                                </button>
+                            </div>
+
+                            <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-3xl p-12 border border-slate-700/50 text-center">
+                                <div className={`w-32 h-32 bg-gradient-to-br ${concept.color} rounded-3xl flex items-center justify-center mx-auto mb-6`}>
+                                    <Icon icon={concept.icon} className="w-16 h-16 text-white" />
+                                </div>
+                                
+                                <h2 className="text-4xl font-bold text-gray-200 mb-4">
+                                    {concept.title}
+                                </h2>
+                                <p className="text-gray-400 text-lg mb-8">
+                                    {concept.description}
+                                </p>
+                                
+                                <div className="bg-blue-900/30 border border-blue-500/30 rounded-xl p-6 mb-6">
+                                    <p className="text-blue-300 text-lg">
+                                        🚀 <strong>Beta Testing Note:</strong> Each concept will open as a full interactive experience.
+                                        This is a demo version - the full implementation is available in the complete app.
+                                    </p>
+                                </div>
+
+                                <div className="space-y-4 text-left max-w-2xl mx-auto">
+                                    <h3 className="text-xl font-bold text-gray-300 mb-3">What you'll learn:</h3>
+                                    {conceptId === 'visualizer' && (
+                                        <ul className="space-y-2 text-gray-400">
+                                            <li>• See fractions represented in 3 different ways simultaneously</li>
+                                            <li>• Understand the relationship between numerator and denominator</li>
+                                            <li>• Explore equivalent fractions visually</li>
+                                            <li>• Build intuition for fraction magnitude</li>
+                                        </ul>
+                                    )}
+                                    {conceptId === 'comparing' && (
+                                        <ul className="space-y-2 text-gray-400">
+                                            <li>• Determine which fraction is larger or if they're equal</li>
+                                            <li>• Learn 3 different comparison methods</li>
+                                            <li>• Practice with immediate feedback</li>
+                                            <li>• Track your accuracy and build confidence</li>
+                                        </ul>
+                                    )}
+                                    {conceptId === 'equivalent' && (
+                                        <ul className="space-y-2 text-gray-400">
+                                            <li>• See how multiplying numerator and denominator creates equivalents</li>
+                                            <li>• Visualize why 1/2 = 2/4 = 3/6</li>
+                                            <li>• Explore entire families of equivalent fractions</li>
+                                            <li>• Build deep understanding of fraction relationships</li>
+                                        </ul>
+                                    )}
+                                    {conceptId === 'operations' && (
+                                        <ul className="space-y-2 text-gray-400">
+                                            <li>• Add and subtract fractions with visual proof</li>
+                                            <li>• Multiply and divide fractions intuitively</li>
+                                            <li>• See step-by-step animated explanations</li>
+                                            <li>• Understand WHY the rules work, not just HOW</li>
+                                        </ul>
+                                    )}
+                                    {conceptId === 'word-problems' && (
+                                        <ul className="space-y-2 text-gray-400">
+                                            <li>• Turn abstract word problems into visual scenarios</li>
+                                            <li>• See animated representations of real-world situations</li>
+                                            <li>• Practice translating text into mathematical thinking</li>
+                                            <li>• Build confidence with practical applications</li>
+                                        </ul>
+                                    )}
+                                </div>
+
+                                <div className="mt-8 flex gap-4 justify-center">
+                                    <button
+                                        onClick={() => setCurrentView('home')}
+                                        className="px-6 py-3 bg-slate-700 hover:bg-slate-600 rounded-xl font-semibold transition-all duration-300"
+                                    >
+                                        Back to Home
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div className="mt-8 bg-gradient-to-r from-slate-800/50 to-slate-900/50 rounded-2xl p-6 border border-slate-700/30">
+                                <h3 className="text-xl font-bold text-gray-300 mb-3">📝 Beta Testing Feedback</h3>
+                                <p className="text-gray-400 mb-4">
+                                    You're viewing a beta version! Each concept has been built as a separate interactive module.
+                                    In the complete app, clicking a concept card will launch the full interactive experience.
+                                </p>
+                                <p className="text-gray-500 text-sm">
+                                    This navigation structure is designed to showcase the 5 core learning modules available in Fraction Master.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                );
+            };
+
+            if (currentView === 'home') {
+                return <HomePage />;
+            }
+            
+            return <ConceptPage conceptId={currentView} />;
+        }
+
+        ReactDOM.render(<FractionMasterApp />, document.getElementById('root'));
+    </script>
+</body>
+</html>
